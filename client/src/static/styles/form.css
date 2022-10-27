@@ -1,0 +1,44 @@
+h1 {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.form {
+  width: 80%;
+  margin: 5% 10% 10% 10%;
+  padding: 5%;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+
+  display: flex;
+}
+
+.form div, label, input {
+  margin: 1% 1% 0 0;
+}
+
+.box1 {
+  width: 40%;
+}
+
+.inputFields {
+  width: 40vh;
+}
+
+.labelContainer {
+  width: 100vh;
+}
+.label {
+  width: 40vh;
+  margin-top: 15px !important;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(89, 79, 79, 0.262);
+}
+
+.button {
+  margin-top: 5% !important;
+}

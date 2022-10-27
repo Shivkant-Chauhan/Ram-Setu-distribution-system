@@ -1,0 +1,61 @@
+.recent-flexbox {
+  text-align: center;
+  margin: 10%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+.recent-flexbox .box-rec {
+  background-color: #fff;
+  position: relative;
+  height: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.recent-flexbox .box-rec .boxIMG {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+.recent-flexbox .box-rec .boxCONT {
+  height: 100%;
+  width: 100%;
+  background: #141c1c;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  transition: opacity 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.recent-flexbox .box-rec .boxCONT .portal-btn {
+  border-radius: 25px;
+  padding: 8px 23px;
+  font-size: 17px;
+  color: white;
+  height: auto;
+  width: auto;
+  border-color: #7510F7;
+  background-color: #141c3a;
+  font-weight: lighter;
+  font-family: "europa", sans-serif;
+  transition: background-color 0.3s ease-in-out;
+}
+.recent-flexbox .box-rec .boxCONT .portal-btn:hover {
+  background-color: #7510F7;
+  color: white;
+}
+.recent-flexbox .box-rec:hover .boxIMG {
+  transform: scale(1.5);
+}
+.recent-flexbox .box-rec:hover .boxCONT {
+  opacity: 1;
+}
+.recent-flexbox .middleBox {
+  margin: 0 5%;
+}
