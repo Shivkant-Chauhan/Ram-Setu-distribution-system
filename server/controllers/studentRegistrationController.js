@@ -84,7 +84,7 @@ class studentRegistrationController {
     }
   }
 
-  // TODO: can also implement change password and forget password..
+  // TODO: can also implement change password and forget password.. (in a protected route!)
 }
 
 export default studentRegistrationController;
