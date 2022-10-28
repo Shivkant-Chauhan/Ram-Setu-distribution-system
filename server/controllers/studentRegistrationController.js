@@ -15,25 +15,25 @@ con.connect((err) => {
 
 class studentRegistrationController {
   static studentRegistration = async(req, res) => {
-    const {aadhar, password} = req.body;
+    const { fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password } = req.body;
+    console.log(req.body);
     
     const sqlQuery = `SELECT aadhar FROM studentsTable WHERE aadhar=${aadhar}`;
     con.query(sqlQuery, async(err, result) => {
       if(err) throw err;
 
       if(result.length > 0) {
+        console.log("user exists");
         res.send("user already present");
       } else{
-        // if(password != cpassword){
-        //   res.send("password not matches");
-        // }
-        // can add more validations
         const salt = await bcrypt.genSalt(10);
         const hashPass = await bcrypt.hash(password, salt);
         console.log(typeof hashPass);
         
         const token = jwt.sign({ id: aadhar }, process.env.secretKey, { expiresIn: '30m' });
-        con.query(`INSERT INTO studentsTable (aadhar, password) VALUES (${aadhar}, '${hashPass}')`, (err, result) => {
+
+        let sql = `INSERT INTO studentsTable (fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password) VALUES ('${fName}', '${lName}', '${category}', '${gender}', '${scholarship}', '${email}', '${religion}', '${address}', ${mobile}, ${aadhar}, '${dob}', ${income}, '${incomeCertificate}', ${marks}, '${gradesheet}', '${categoryCerti}', '${hashPass}')`;
+        con.query(sql, (err, result) => {
           if(err) throw err;
           console.log("student added");
           res.send({
@@ -49,13 +49,14 @@ class studentRegistrationController {
 
   static studentLogin = async(req, response) => {
     const {aadhar, dob, password} = req.body;
+    console.log(aadhar, dob, password);
     if(aadhar && dob && password) {
       con.query(`SELECT * FROM studentsTable WHERE studentsTable.aadhar=${aadhar}`, async(err, res) => {
         if(err) throw err;
         if(res.length > 0){
           const isMatch = await bcrypt.compare(password, res[0].password);
           if(res[0].aadhar===aadhar && isMatch) {
-
+            console.log("sdfs");
             const token = jwt.sign({ id: aadhar }, process.env.secretKey, { expiresIn: '30m' });
             response.send({
               "status": "success",
@@ -63,6 +64,7 @@ class studentRegistrationController {
               "token": token
             });
           } else {
+            console.log("sdfs!");
             response.send({
               "status": "failed",
               "message": "Invalid Credentials"
@@ -85,6 +87,12 @@ class studentRegistrationController {
   }
 
   // TODO: can also implement change password and forget password.. (in a protected route!)
+
+  static loggedUserDetails = async(req, res) => {
+    res.send({
+      "user": req.user
+    });
+  }
 }
 
 export default studentRegistrationController;

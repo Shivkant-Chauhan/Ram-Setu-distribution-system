@@ -17,8 +17,10 @@ con.connect((err) => {
 const checkUserAuth = async(req, res, next) => {
   let token;
   const { authorization } = req.headers;
+  console.log(authorization);
   if(authorization && authorization.startsWith('Bearer')) {
     try{
+      // console.log(authorization);
       token = authorization.split(' ')[1] // as token in form for : Bearer <token> : after a space!
 
       // verifying token

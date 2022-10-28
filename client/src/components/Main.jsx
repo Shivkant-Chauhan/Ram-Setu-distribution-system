@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import StudentApp from "./Student/StudentApp";
 import SignUp from "./Student/SignUp";
 import AdminApp from "./Admin/AdminApp";
+import StudentLogin from "./Student/StudentLogin";
+import StudentPortal from "./Student/StudentPortal";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,7 +15,6 @@ import {
 } from 'react-router-dom';
 
 import '../static/styles/main.css'
-import StudentLogin from "./Student/StudentLogin";
 
 // import wrappingUp from "../static/motionBackground";
 
@@ -29,16 +30,16 @@ function Main(){
 
       <canvas className="orb-canvas"></canvas>  {/* for my Motion background! */}
       <Header />
-      {/* <Landing />
-      <PortalBox /> */}
+
       <Routes>
         <Route exact path="/" element={ <Home /> }></Route>
         <Route exact path="/student" element={ <StudentApp /> }></Route>
         <Route exact path="/admin" element={ <AdminApp /> }></Route>
-
         <Route exact path="/student/login" element={ <StudentLogin /> } method="POST"></Route>
         <Route exact path="/student/signup" element={ <SignUp /> }></Route>
+        <Route exact path="/student/studentPortal" element={ <StudentPortal /> }></Route>
       </Routes>
+
       <Footer />
     </Router>
   );

@@ -5,14 +5,13 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
-// import cors from 'cors';  // for perfectly connecting with react.
-// app.use(cors());
+import cors from 'cors';  // cross-origin resource sharing for secure requests!
+app.use(cors());
 dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-// app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/student/login", userRoutes);
 app.use("/admin/login", adminRoutes);
