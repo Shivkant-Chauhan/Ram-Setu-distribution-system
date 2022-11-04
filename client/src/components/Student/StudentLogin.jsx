@@ -14,19 +14,20 @@ function StudentLogin() {
 
   async function studentLoginHandler(e) {
     e.preventDefault();
-    try {
-      const { token } = await axios.post("http://localhost:3001/student/login/signin", {
-        aadhar,
-        dob,
-        password
-      });
-
-      console.log(token, "panda");
-      window.open("/student/studentPortal", "_self");
-    } catch (err) {
+    const res = await axios.post("http://localhost:3001/student/login/signin", {
+      aadhar,
+      dob,
+      password
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((err) => {
       console.log(err);
-    }
+    })
+    window.open("/student/studentPortal", "_self");
   }
+  
 
   return (
     <>

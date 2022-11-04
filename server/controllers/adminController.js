@@ -26,7 +26,7 @@ class adminController {
       } else{
         const salt = await bcrypt.genSalt(10);
         const hashPass = await bcrypt.hash(password, salt);
-        console.log(typeof hashPass);
+        // console.log(typeof hashPass);
         con.query(`INSERT INTO adminRecords (userID, password) VALUES ('${userID}', '${hashPass}')`, (err, result) => {
           if(err) throw err;
           console.log("admin created");

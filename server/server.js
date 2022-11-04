@@ -1,17 +1,15 @@
 import express from 'express';
-const app = express();
-import path from 'path';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import cors from 'cors';  // cross-origin resource sharing for secure requests!
-app.use(cors());
-dotenv.config();
-
 const PORT = process.env.PORT || 3001;
 
+const app = express();
+app.use(cors());
+dotenv.config();
 app.use(express.json());
+
 
 app.use("/student/login", userRoutes);
 app.use("/admin/login", adminRoutes);

@@ -38,6 +38,7 @@ function SignUp() {
   async function studentFormSubmit(e) {
     e.preventDefault();
     // add form validators here!
+    // useHistory()..?
 
     try {
       await axios.post("http://localhost:3001/student/login/register", {

@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import mysql from 'mysql';
+import jwt from 'jsonwebtoken';
 
 const con = mysql.createConnection({
   host: "localhost",
@@ -14,29 +14,40 @@ con.connect((err) => {
 
 
 // middleware for checking the authentication !
-const checkUserAuth = async(req, res, next) => {
-  let token;
-  const { authorization } = req.headers;
-  console.log(authorization);
-  if(authorization && authorization.startsWith('Bearer')) {
+const checkUserAuth = async(req, res) => {
+  let token = req.body.token;
+  if(token) {
     try{
-      // console.log(authorization);
-      token = authorization.split(' ')[1] // as token in form for : Bearer <token> : after a space!
-
       // verifying token
       const { id } = jwt.verify(token, process.env.secretKey);
       // here id is my aadhar of the user as it is the primary key of the users that i have used in jwt.sign()!
       let user;
       con.query(`SELECT * FROM studentsTable WHERE studentsTable.aadhar=${id}`, async(err, result) => {
         if(err) throw err;
-        console.log(result[0]);
         user = result[0];
       });
 
+      console.log("pooch gya");
+      let rank;
+      let total;
       setTimeout(() => {
-        req.user = user;
-      }, 1000);
-      next();
+        con.query(`SELECT RANK() OVER(ORDER BY marks DESC) FROM ${user.scholarship} WHERE aadhar=${user.aadhar}`, async(err, result) => {
+          if(err) throw err;
+          rank = result[0]['RANK() OVER(ORDER BY marks DESC)'];
+        });
+        con.query(`SELECT COUNT(*) FROM ${user.scholarship}`, async(err, result) => {
+          if(err) throw err;
+          total = result[0]['COUNT(*)'];
+        });
+        setTimeout(() => {
+          console.log(user);
+          res.send({
+            "user": user,
+            "rank": rank,
+            "total": total
+          });
+        }, 100);
+      }, 100);
     } catch(err) {
       console.log(err);
       res.status(401).send({

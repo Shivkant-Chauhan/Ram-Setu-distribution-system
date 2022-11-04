@@ -5,8 +5,8 @@ const router = express.Router();
 
 
 // middleware to protect route
-router.post("/middleware", checkUserAuth);
-router.get("/studentDetails", checkUserAuth);
+// router.use("/middleware", checkUserAuth);
+// router.get("/studentDetails", checkUserAuth);
 
 // Public Routes
 router.post("/register", studentRegistrationController.studentRegistration);
@@ -14,5 +14,6 @@ router.post("/signin", studentRegistrationController.studentLogin);
 
 // Protected Routes
 router.get("/studentDetails", studentRegistrationController.loggedUserDetails);
+router.post("/auth_middleware", checkUserAuth);
 
 export default router;

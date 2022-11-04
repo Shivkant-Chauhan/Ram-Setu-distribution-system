@@ -272,3 +272,9 @@ a {
     margin-bottom: 1rem;
   }
 }
+
+
+#img{
+  height: 80vh;
+  width: auto;
+}

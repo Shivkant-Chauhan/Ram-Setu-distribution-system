@@ -1,6 +1,10 @@
+import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import mysql from 'mysql';
+import cookieParser from 'cookie-parser';
+const app = express();
+app.use(cookieParser());
 
 const con = mysql.createConnection({
   host: "localhost",
@@ -13,6 +17,7 @@ con.connect((err) => {
   console.log("Connected with database!");
 });
 
+let studentToken = null;
 class studentRegistrationController {
   static studentRegistration = async(req, res) => {
     const { fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password } = req.body;
@@ -23,19 +28,26 @@ class studentRegistrationController {
       if(err) throw err;
 
       if(result.length > 0) {
+        studentToken = null;
         console.log("user exists");
         res.send("user already present");
       } else{
         const salt = await bcrypt.genSalt(10);
         const hashPass = await bcrypt.hash(password, salt);
-        console.log(typeof hashPass);
         
         const token = jwt.sign({ id: aadhar }, process.env.secretKey, { expiresIn: '30m' });
 
-        let sql = `INSERT INTO studentsTable (fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password) VALUES ('${fName}', '${lName}', '${category}', '${gender}', '${scholarship}', '${email}', '${religion}', '${address}', ${mobile}, ${aadhar}, '${dob}', ${income}, '${incomeCertificate}', ${marks}, '${gradesheet}', '${categoryCerti}', '${hashPass}')`;
+        let sql = `INSERT INTO ${scholarship} (aadhar, marks) VALUES (${aadhar}, ${marks})`;
+        con.query(sql, (err, res) => {
+          if(err) throw err;
+          console.log("scholarship table updated!");
+        })
+
+        sql = `INSERT INTO studentsTable (fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password) VALUES ('${fName}', '${lName}', '${category}', '${gender}', '${scholarship}', '${email}', '${religion}', '${address}', ${mobile}, ${aadhar}, '${dob}', ${income}, '${incomeCertificate}', ${marks}, '${gradesheet}', '${categoryCerti}', '${hashPass}')`;
         con.query(sql, (err, result) => {
           if(err) throw err;
           console.log("student added");
+          studentToken = token;
           res.send({
             "status": "OK",
             "message": "student record added",
@@ -49,28 +61,32 @@ class studentRegistrationController {
 
   static studentLogin = async(req, response) => {
     const {aadhar, dob, password} = req.body;
-    console.log(aadhar, dob, password);
     if(aadhar && dob && password) {
       con.query(`SELECT * FROM studentsTable WHERE studentsTable.aadhar=${aadhar}`, async(err, res) => {
-        if(err) throw err;
+        if(err){
+          studentToken = null;
+          throw err;
+        }
         if(res.length > 0){
           const isMatch = await bcrypt.compare(password, res[0].password);
-          if(res[0].aadhar===aadhar && isMatch) {
-            console.log("sdfs");
+          if(res[0].aadhar==aadhar && isMatch) {
             const token = jwt.sign({ id: aadhar }, process.env.secretKey, { expiresIn: '30m' });
+            studentToken = token;
             response.send({
               "status": "success",
               "message": "login successful",
-              "token": token
+              "token": token,
             });
           } else {
-            console.log("sdfs!");
+            studentToken = null;
             response.send({
               "status": "failed",
               "message": "Invalid Credentials"
             });
           }
+          
         } else {
+          studentToken = null;
           response.statusCode = 404;
           response.send({
             "status": "failed",
@@ -79,6 +95,7 @@ class studentRegistrationController {
         }
       });
     } else {
+      studentToken = null;
       response.send({
         "status": "failed",
         "message": "empty fields not allowed"
@@ -89,9 +106,16 @@ class studentRegistrationController {
   // TODO: can also implement change password and forget password.. (in a protected route!)
 
   static loggedUserDetails = async(req, res) => {
-    res.send({
-      "user": req.user
-    });
+    if(studentToken){
+      res.send({
+        "studentToken": studentToken
+      });
+    } else {
+      res.status(404).send({
+        "status": "failed",
+        "message": "cannot show student"
+      })
+    }
   }
 }
 
