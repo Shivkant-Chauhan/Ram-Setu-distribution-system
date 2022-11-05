@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom';
 
 import '../static/styles/main.css'
+import AdminPortal from "./Admin/AdminPortal";
 
 // import wrappingUp from "../static/motionBackground";
 
@@ -35,6 +36,8 @@ function Main(){
         <Route exact path="/" element={ <Home /> }></Route>
         <Route exact path="/student" element={ <StudentApp /> }></Route>
         <Route exact path="/admin" element={ <AdminApp /> }></Route>
+        <Route exact path="/admin/adminPortal" element={ <AdminPortal /> }></Route>
+        
         <Route exact path="/student/login" element={ <StudentLogin /> } method="POST"></Route>
         <Route exact path="/student/signup" element={ <SignUp /> }></Route>
         <Route exact path="/student/studentPortal" element={ <StudentPortal /> }></Route>
