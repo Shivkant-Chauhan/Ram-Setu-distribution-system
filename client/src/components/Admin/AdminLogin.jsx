@@ -27,9 +27,9 @@ function AdminLogin() {
 
   return (
     <>
-      <form action="" method="post" className="form">
+      <form action="" method="post" className="form2">
         <div>
-            <TextField className="width70" type="text" label="ADMIN userID" onChange={(e) => setID(e.target.value)} required />
+            <TextField className="inputFields" type="text" label="ADMIN userID" onChange={(e) => setID(e.target.value)} required />
         </div>
 
         <div>

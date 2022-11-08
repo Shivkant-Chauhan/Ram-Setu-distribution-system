@@ -20,25 +20,32 @@ const adminAuth = async(req, res) => {
     try{
       // verifying token
       const { id } = jwt.verify(token, process.env.secretKey);
-      let openScholarship, girlsScholarship, minoritiesScholarship;
-      con.query(`SELECT * FROM open`, async(err, result) => {
+      
+
+      let students, openSize, girlsSize, minoritySize;
+      con.query(`SELECT * FROM studentsTable ORDER BY marks DESC`, async(err, result) => {
         if(err) throw err;
-        openScholarship = result;
+        students = result;
       });
-      con.query(`SELECT * FROM girls`, async(err, result) => {
+      con.query(`SELECT COUNT(aadhar) FROM studentsTable WHERE scholarship='open'`, async(err, result) => {
         if(err) throw err;
-        girlsScholarship = result;
-      });
-      con.query(`SELECT * FROM minorities`, async(err, result) => {
+        openSize = result;
+      })
+      con.query(`SELECT COUNT(aadhar) FROM studentsTable WHERE scholarship='girls'`, async(err, result) => {
         if(err) throw err;
-        minoritiesScholarship = result;
-      });
+        girlsSize = result;
+      })
+      con.query(`SELECT COUNT(aadhar) FROM studentsTable WHERE scholarship='minorities'`, async(err, result) => {
+        if(err) throw err;
+        minoritySize = result;
+      })
 
       setTimeout(() => {
         res.send({
-          "open": openScholarship,
-          "girls": girlsScholarship,
-          "minorities": minoritiesScholarship
+          "studentsTable": students,
+          "openSize": openSize,
+          "girlsSize": girlsSize,
+          "minoritySize": minoritySize
         });
       }, 100);
 

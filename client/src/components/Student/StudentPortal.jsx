@@ -50,6 +50,26 @@ function StudentPortal() {
         setReligion(user.religion);
         setMarks(user.marks);
         setMob(user.mobile);
+
+        if(user.scholarship == 'open'){
+          if(response.data.rank <= 500) {
+            alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Open to all Scholarship`);
+          } else{
+            alert(`Sorry ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are not eligible for the prizes as you have applied in Open to all Scholarship`);
+          }
+        } else if(user.scholarship == 'girls'){
+          if(response.data.rank <= 250) {
+            alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Girls only Scholarship`);
+          } else{
+            alert(`Sorry ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are not eligible for the prizes as you have applied in Girls only Scholarship`);
+          }
+        } else {
+          if(response.data.rank <= 150) {
+            alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Minorities only Scholarship`);
+          } else{
+            alert(`Sorry ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are not eligible for the prizes as you have applied in Minorities only Scholarship`);
+          }
+        }
       }).catch((err) => console.log(err));
     }).catch((err) => {
       console.log(err, "shiv bhai error");

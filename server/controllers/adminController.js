@@ -94,8 +94,38 @@ class adminController {
     }
   }
 
-  static adminPortalController = async(request, response) => {
-    
+  static delete_records = async(req, res) => {
+    const { aadharID } = req.body;
+
+    if(aadharID){
+      try{
+        con.query(`DELETE FROM studentsTable WHERE aadhar=${aadharID}`, async(err, res) => {
+          if(err) throw err;
+        });
+        con.query(`DELETE FROM open WHERE aadhar=${aadharID}`, async(err, res) => {
+          if(err) throw err;
+        });
+        con.query(`DELETE FROM girls WHERE aadhar=${aadharID}`, async(err, res) => {
+          if(err) throw err;
+        });
+        con.query(`DELETE FROM minorities WHERE aadhar=${aadharID}`, async(err, res) => {
+          if(err) throw err;
+        });
+
+        res.send({
+          "status": "passed"
+        })
+      } catch(err) {
+        console.log(err);
+        res.send({
+          "status": "failed"
+        })
+      }
+    } else{
+      res.send({
+        "status": "failed"
+      })
+    }
   }
 }
 
