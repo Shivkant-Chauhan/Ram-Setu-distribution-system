@@ -17,12 +17,6 @@ import {
 import '../static/styles/main.css'
 import AdminPortal from "./Admin/AdminPortal";
 
-// import wrappingUp from "../static/motionBackground";
-
-// setTimeout(() => {
-//   wrappingUp();
-// }, 100);
-
 function Main(){
   return (
     <Router>
