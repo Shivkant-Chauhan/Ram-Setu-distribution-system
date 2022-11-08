@@ -130,7 +130,7 @@ function AdminPortal() {
 
       <h2>Leaderboards details!</h2>
       <div className="schloarship">
-        <h3>Open to All Scholarship</h3>
+        <h3>Open to All Scholarship (total prizes: 500)</h3>
         <h5>Total students applied: {openSize}</h5>
         <table>
           <tr>
@@ -166,7 +166,7 @@ function AdminPortal() {
         </table>
       </div>
       <div className="schloarship">
-        <h3>Scholarship only for Girls</h3>
+        <h3>Scholarship only for Girls (total prizes: 250)</h3>
         <h5>Total students applied: {girlSize}</h5>
         <table>
           <tr>
@@ -202,7 +202,7 @@ function AdminPortal() {
         </table>
       </div>
       <div className="schloarship">
-        <h3>Scholarship only for Minority students</h3>
+        <h3>Scholarship only for Minority students (total prizes: 150)</h3>
         <h5>Total students applied: {minoritySize}</h5>
         <table>
           <tr>
