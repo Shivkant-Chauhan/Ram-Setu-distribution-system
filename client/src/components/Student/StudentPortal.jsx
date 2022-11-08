@@ -21,6 +21,8 @@ function StudentPortal() {
   const [mobile, setMob] = useState("");
   const [rank, setRank] = useState(0);
   const [total, setTotal] = useState(0);
+
+  const [totalPrizes, setPrizes] = useState(0);
   useEffect(() => {
     user = null;
     axios.get("http://localhost:3001/student/login/studentDetails").then(async(response) => {
@@ -52,18 +54,21 @@ function StudentPortal() {
         setMob(user.mobile);
 
         if(user.scholarship == 'open'){
+          setPrizes(500);
           if(response.data.rank <= 500) {
             alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Open to all Scholarship`);
           } else{
             alert(`Sorry ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are not eligible for the prizes as you have applied in Open to all Scholarship`);
           }
         } else if(user.scholarship == 'girls'){
+          setPrizes(250);
           if(response.data.rank <= 250) {
             alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Girls only Scholarship`);
           } else{
             alert(`Sorry ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are not eligible for the prizes as you have applied in Girls only Scholarship`);
           }
         } else {
+          setPrizes(150);
           if(response.data.rank <= 150) {
             alert(`Congrats ${user.fName}, according to the current leaderboard: (rank ${response.data.rank}), you are eligible for the prizes as you have applied in Minorities only Scholarship`);
           } else{
@@ -107,7 +112,8 @@ function StudentPortal() {
         </div>
         <div className="leaderBoard">
           <strong>{fName}</strong>, you current rank on the leaderboard is <strong>{rank}</strong>... <br />
-          and the total student who applied for this {scholarship} scholarship are <strong>{total}</strong>
+          and the total student who applied for this {scholarship} scholarship are <strong>{total}</strong><br /><br /><br />
+          <strong>Total Prizes for this schloarship are : {totalPrizes}</strong>
         </div>
       </>
     );
