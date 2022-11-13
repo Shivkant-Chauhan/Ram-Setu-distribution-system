@@ -11,6 +11,7 @@ const router = express.Router();
 // Public Routes
 router.post("/register", studentRegistrationController.studentRegistration);
 router.post("/signin", studentRegistrationController.studentLogin);
+router.post("/feedback", studentRegistrationController.feedback);
 
 // Protected Routes
 router.get("/studentDetails", studentRegistrationController.loggedUserDetails);

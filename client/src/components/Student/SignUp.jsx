@@ -6,14 +6,8 @@ import FormControl from "@mui/material/FormControl";
 
 import "../../static/styles/signUp.css";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
-// import wrappingUp from "../../static/motionBackground";
-
-// setTimeout(() => {
-//   wrappingUp();
-// }, 100);
 
 function SignUp() {
   const [fName, setfName] = useState("");
@@ -68,8 +62,6 @@ function SignUp() {
     }
   }
 
-  // let minorityOnlyChecker = false;
-  // const [girlsOnlyChecker, setGirlsChecker] = useState(false);
   return (
     <>
       <h1>Fresh Registration for Students</h1>
@@ -120,7 +112,6 @@ function SignUp() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value={age}
               label="category"
               name="gender"
               onChange={(e) => {
@@ -143,7 +134,6 @@ function SignUp() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              // value={age}
               label="category"
               name="scholarship"
               onChange={(e) => setScholarship(e.target.value)}

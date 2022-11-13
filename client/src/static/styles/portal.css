@@ -1,6 +1,7 @@
 .recent-flexbox {
   text-align: center;
-  margin: 10%;
+  margin: 7.5%;
+  width: 33.33%;
   position: relative;
   display: flex;
   flex-wrap: wrap;

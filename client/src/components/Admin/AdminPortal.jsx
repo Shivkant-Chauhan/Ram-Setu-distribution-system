@@ -92,11 +92,18 @@ function AdminPortal() {
   return (
     <>
       <div className="logOutBTN">
+        <Link to="/admin/feedbacks">
+          <Button
+            variant="contained"
+            type="submit"
+          >
+            User Feedbacks
+          </Button>
+        </Link>
         <Link to="/admin">
           <Button
             variant="contained"
             type="submit"
-            className="dangerBtn"
             onClick={logOut}
             style={{ backgroundColor: "red" }}
           >

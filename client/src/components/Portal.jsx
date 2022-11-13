@@ -8,19 +8,13 @@ import "../static/styles/portal.css";
 
 function Portal(props) {
 
-  // function routeChange(e) {
-  //   console.log(props.routingPage);
-  //   if(props.routingPage === "student") {
-  //     Student();
-  //   } else {
-  //     Admin();
-  //   }
-  // }
   let route;
   if(props.routingPage === "student") {
     route = "/student";
-  } else{
+  } else if(props.routingPage === "admin"){
     route = "/admin";
+  } else {
+    route = "/feedback";
   }
 
   return (
@@ -30,7 +24,7 @@ function Portal(props) {
           <div className="boxCONT">
               <p>{props.desc}</p>
               <Link to={route} className="portal-btn">
-                  Visit Website 
+                  Visit Portal 
                   <i className="fa-solid fa-caret-right"></i>
               </Link>
           </div>

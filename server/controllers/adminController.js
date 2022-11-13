@@ -127,6 +127,27 @@ class adminController {
       })
     }
   }
+
+  static userFeedback = async(req, res) => {
+    let sql = `SELECT * FROM feedbacks`;
+    con.query(sql, async(err, result) => {
+      if(err) throw err;
+      res.send({
+        "userFeedbacks": result
+      });
+    });
+  }
+
+  static issueResolved = async(req, response) => {
+    let desc = req.body.desc;
+    let sql = `DELETE FROM feedbacks WHERE description='${desc}'`;
+    con.query(sql, async(err, res) => {
+      if(err) throw err;
+      response.send({
+        "status": "passed"
+      })
+    })
+  }
 }
 
 export default adminController;

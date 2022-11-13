@@ -117,6 +117,18 @@ class studentRegistrationController {
       })
     }
   }
+
+  static feedback = async(req, response) => {
+    const {problemDesc, screenshot} = req.body;
+    let sql = `INSERT INTO feedbacks (description, screenshot) VALUES ('${problemDesc}', '${screenshot}')`;
+    con.query(sql, async(err, res) => {
+      if(err) throw err;
+      console.log("feedback submitted");
+      response.send({
+        "status": "success"
+      });
+    });
+  }
 }
 
 export default studentRegistrationController;

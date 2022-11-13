@@ -11,5 +11,7 @@ router.post("/signin", adminController.adminLogin);
 router.get("/adminDetails", adminController.adminDetails);
 router.post("/auth_middleware", adminAuth);
 router.post("/delete_record", adminController.delete_records);
+router.get("/feedback", adminController.userFeedback);
+router.post("/issueResolved", adminController.issueResolved);
 
 export default router;
