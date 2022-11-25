@@ -36,12 +36,11 @@ class studentRegistrationController {
         const hashPass = await bcrypt.hash(password, salt);
         
         const token = jwt.sign({ id: aadhar }, process.env.secretKey, { expiresIn: '30m' });
-
+        console.log(scholarship, "shivkant.. scholarship name");
         let sql = `INSERT INTO ${scholarship} (aadhar, marks) VALUES (${aadhar}, ${marks})`;
         con.query(sql, (err, res) => {
           if(err) throw err;
-          console.log("scholarship table updated!");
-        })
+        });
 
         sql = `INSERT INTO studentsTable (fName, lName, category, gender, scholarship, email, religion, address, mobile, aadhar, dob, income, incomeCertificate, marks, gradesheet, categoryCerti, password) VALUES ('${fName}', '${lName}', '${category}', '${gender}', '${scholarship}', '${email}', '${religion}', '${address}', ${mobile}, ${aadhar}, '${dob}', ${income}, '${incomeCertificate}', ${marks}, '${gradesheet}', '${categoryCerti}', '${hashPass}')`;
         con.query(sql, (err, result) => {

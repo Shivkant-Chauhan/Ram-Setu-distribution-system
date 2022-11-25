@@ -27,17 +27,17 @@ const checkUserAuth = async(req, res) => {
         user = result[0];
       });
 
-      console.log("pooch gya");
       let rank;
       let total;
-      setTimeout(() => {
-        con.query(`SELECT RANK() OVER(ORDER BY marks DESC) FROM ${user.scholarship} WHERE aadhar=${user.aadhar}`, async(err, result) => {
+      setTimeout(async() => {
+        await con.query(`SELECT RANK() OVER(ORDER BY marks DESC) FROM ${user.scholarship} WHERE aadhar=${user.aadhar}`, async(err, result) => {
           if(err) throw err;
           rank = result[0]['RANK() OVER(ORDER BY marks DESC)'];
         });
-        con.query(`SELECT COUNT(*) FROM ${user.scholarship}`, async(err, result) => {
+        await con.query(`SELECT COUNT(aadhar) FROM ${user.scholarship}`, async(err, result) => {
           if(err) throw err;
-          total = result[0]['COUNT(*)'];
+          console.log(result);
+          total = result[0]['COUNT(aadhar)'];
         });
         setTimeout(() => {
           console.log(user);

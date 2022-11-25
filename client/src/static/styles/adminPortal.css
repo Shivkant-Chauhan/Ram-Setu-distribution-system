@@ -17,8 +17,9 @@
   width: 75vh;
 }
 
-h2{
+.headDesc{
   margin: 7.5% !important;
+  margin-bottom: 2% !important;
   text-align: center;
 }
 

@@ -244,6 +244,21 @@ function AdminPortal() {
           )}
         </table>
       </div>
+{/* 
+      <Button
+        variant="contained"
+        type="submit"
+        style={{ backgroundColor: "red" }}
+      >
+        Lock New Registrations
+      </Button>
+      <Button
+        variant="contained"
+        type="submit"
+        style={{ backgroundColor: "green" }}
+      >
+        Unlock New Registrations
+      </Button> */}
     </>
   );
 }
