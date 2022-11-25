@@ -127,6 +127,26 @@ class adminController {
     }
   }
 
+  static lock_records = async(req, response) => {
+    let sql = `UPDATE locks SET isLocked=0`;
+    con.query(sql, async(err, res) => {
+      if(err) throw err;
+      response.send({
+        "status": "success"
+      });
+    });
+  }
+  
+  static unlock_records = async(req, response) => {
+    let sql = `UPDATE locks SET isLocked=1`;
+    con.query(sql, async(err, res) => {
+      if(err) throw err;
+      response.send({
+        "status": "success"
+      });
+    });
+  }
+
   static userFeedback = async(req, res) => {
     let sql = `SELECT * FROM feedbacks`;
     con.query(sql, async(err, result) => {

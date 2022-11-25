@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 
 import "../../static/styles/studentApp.css"
 
-// import wrappingUp from "../../static/motionBackground";
-
-// setTimeout(() => {
-//   wrappingUp();
-// }, 100);
 
 function StudentApp() {
   return (

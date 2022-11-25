@@ -49,3 +49,8 @@ td{
   margin-left: 70%;
   display: flex;
 }
+
+.lock-btn {
+  display: flex;
+  justify-content: space-evenly;
+}

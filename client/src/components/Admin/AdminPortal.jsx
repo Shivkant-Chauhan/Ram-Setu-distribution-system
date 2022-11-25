@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import "../../static/styles/adminPortal.css";
 
 function AdminPortal() {
-  // let students = [],
-  //   size = 0;
   let temp = [
     {
       aadhar: "",
@@ -89,6 +87,29 @@ function AdminPortal() {
       });
   }
 
+  function lockHandler() {
+    axios
+      .post("http://localhost:3001/admin/login/lock_record")
+      .then(async() => {
+        alert('Fresh Registrations locked now!');
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function unlockHandler() {
+    axios
+      .post("http://localhost:3001/admin/login/unlock_record")
+      .then(async() => {
+        alert('Fresh Registrations Unlocked!');
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <div className="logOutBTN">
@@ -135,7 +156,7 @@ function AdminPortal() {
         </div>
       </div>
 
-      <h2>Leaderboards details!</h2>
+      <h1>Leaderboards details!</h1>
       <div className="schloarship">
         <h3>Open to All Scholarship (total prizes: 500)</h3>
         <h5>Total students applied: {openSize}</h5>
@@ -244,21 +265,25 @@ function AdminPortal() {
           )}
         </table>
       </div>
-{/* 
-      <Button
-        variant="contained"
-        type="submit"
-        style={{ backgroundColor: "red" }}
-      >
-        Lock New Registrations
-      </Button>
-      <Button
-        variant="contained"
-        type="submit"
-        style={{ backgroundColor: "green" }}
-      >
-        Unlock New Registrations
-      </Button> */}
+ 
+      <div className="lock-btn">
+        <Button
+          variant="contained"
+          type="submit"
+          style={{ backgroundColor: "red" }}
+          onClick={ lockHandler }
+        >
+          Lock New Registrations
+        </Button>
+        <Button
+          variant="contained"
+          type="submit"
+          style={{ backgroundColor: "green" }}
+          onClick={ unlockHandler }
+        >
+          Unlock New Registrations
+        </Button>
+      </div>
     </>
   );
 }

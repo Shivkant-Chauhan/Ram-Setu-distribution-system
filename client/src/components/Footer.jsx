@@ -20,7 +20,7 @@ function Footer() {
 
       <div className="govt">
         <i className="fa-solid fa-period"></i>
-        <span class="dot"></span> Government of Uttar Pradesh <span class="dot"></span>
+        <span className="dot"></span> Government of Uttar Pradesh <span className="dot"></span>
         <i className="fa-solid fa-period"></i>
       </div>
     </div>

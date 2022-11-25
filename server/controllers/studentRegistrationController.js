@@ -128,6 +128,17 @@ class studentRegistrationController {
       });
     });
   }
+
+  static isLockedStatus = async(res, response) => {
+    let sql = `SELECT isLocked FROM locks`;
+    con.query(sql, async(err, res) => {
+      if(err) throw err;
+      console.log(res[0].isLocked);
+      response.send({
+        "isLocked": res[0].isLocked
+      })
+    });
+  }
 }
 
 export default studentRegistrationController;

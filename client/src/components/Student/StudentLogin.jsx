@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import login from "../../static/img/login.svg";
@@ -11,6 +11,23 @@ function StudentLogin() {
   const [aadhar, setAadhar] = useState("");
   const [password, setPass] = useState("");
   const [dob, setDOB] = useState("");
+
+  const [path, setPath] = useState("/student/login");
+  const [lockChecker, setLock] = useState(true);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/student/login/isLockedStatus")
+      .then(async (response) => {
+        if(response.data.isLocked == 1) {
+          setPath("/student/signUp");
+          setLock(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   async function studentLoginHandler(e) {
     e.preventDefault();
@@ -97,13 +114,16 @@ function StudentLogin() {
       </form>
 
       <div className="signUp-container">
-        <Link to="/student/signUp">
-          <Button variant="contained">
+        <Link to={ path }>
+          <Button 
+            variant="contained"
+            disabled={ lockChecker }
+            >
             <i className="fa-sharp fa-solid fa-user-plus"></i>
             New Registration
           </Button>
         </Link>
-        <div className="">
+        <div>
           We are accepting fresh registrations for the eligible UP-domicile
           students! Click the button to proceed for the form filling!
         </div>

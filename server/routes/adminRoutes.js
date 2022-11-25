@@ -11,6 +11,8 @@ router.post("/signin", adminController.adminLogin);
 router.get("/adminDetails", adminController.adminDetails);
 router.post("/auth_middleware", adminAuth);
 router.post("/delete_record", adminController.delete_records);
+router.post("/lock_record", adminController.lock_records);
+router.post("/unlock_record", adminController.unlock_records);
 router.get("/feedback", adminController.userFeedback);
 router.post("/issueResolved", adminController.issueResolved);
 

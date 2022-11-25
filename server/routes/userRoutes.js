@@ -12,6 +12,7 @@ const router = express.Router();
 router.post("/register", studentRegistrationController.studentRegistration);
 router.post("/signin", studentRegistrationController.studentLogin);
 router.post("/feedback", studentRegistrationController.feedback);
+router.post("/isLockedStatus", studentRegistrationController.isLockedStatus);
 
 // Protected Routes
 router.get("/studentDetails", studentRegistrationController.loggedUserDetails);
