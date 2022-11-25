@@ -1,8 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom/client';
 import { Link } from "react-router-dom";
-// import Student from "./Student/Student"
-// import Admin from "./Admin/Admin"
 
 import "../static/styles/portal.css";
 

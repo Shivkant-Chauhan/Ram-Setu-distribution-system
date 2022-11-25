@@ -14,18 +14,30 @@ function StudentLogin() {
 
   async function studentLoginHandler(e) {
     e.preventDefault();
-    const res = await axios.post("http://localhost:3001/student/login/signin", {
-      aadhar,
-      dob,
-      password
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    window.open("/student/studentPortal", "_self");
+    if(aadhar == '' || password == '' || dob == '') {
+      alert("Invalid Credentials!");
+      window.location.reload(false);
+    } else {
+      await axios.post("http://localhost:3001/student/login/signin", {
+        aadhar,
+        dob,
+        password
+      })
+      .then((response) => {
+        console.log(response);
+        if(response.data.status == 'failed') {
+          alert("Invalid Credentials!");
+          window.location.reload(false);
+        } else {
+          window.open("/student/studentPortal", "_self");
+        }
+      })
+      .catch((err) => {
+        alert("Invalid Credentials!");
+        window.location.reload(false);
+        console.log(err);
+      });
+    }
   }
   
 

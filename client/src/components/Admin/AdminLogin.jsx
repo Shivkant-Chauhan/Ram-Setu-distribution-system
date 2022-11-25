@@ -12,18 +12,29 @@ function AdminLogin() {
   async function studentLoginHandler(e) {
     e.preventDefault();
     console.log("shivkant", userID, password);
-    await axios.post("http://localhost:3001/admin/login/signin", {
-      userID,
-      password
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-    window.open("/admin/adminPortal", "_self");
+    if(password == '' || userID == '') {
+      alert("Invalid Credentials!");
+      window.location.reload(false);
+    } else {
+      await axios.post("http://localhost:3001/admin/login/signin", {
+        userID,
+        password
+      })
+      .then((response) => {
+        console.log(response, "sss");
+        if(response.data.status == 'failed') {
+          alert("Invalid Credentials!");
+          window.location.reload(false);
+        } else {
+          window.open("/admin/adminPortal", "_self");
+        }
+      })
+      .catch((err) => {
+        alert("Invalid Credentials!");
+        window.location.reload(false);
+        console.log(err);
+      });
+    }
   }
 
   return (
